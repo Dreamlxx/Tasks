@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>浮动的演示</title>
+    <style>
+        .father{
+            background-color: aqua;
+            border: 15px solid deeppink;
+            /* overflow:hidden; *//*此乃清除浮动方法一*/
+        }
+
+        /* .father::after{
+            content:"" ;
+            display: table;
+            clear: both;
+        } *//*伪元素清除法*/
+        .leftson{
+            width: 100px;
+            height: 100px;
+            background-color: violet;
+            float: left;
+        }
+        .rightson{
+            width: 100px;
+            height: 100px;
+            background-color: cornflowerblue;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="leftson">左浮动</div>
+        <div class="rightson">右浮动</div>
+    </div>
+</body>
+</html>
