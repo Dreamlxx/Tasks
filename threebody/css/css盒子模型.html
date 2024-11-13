@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS盒子模型</title>
+    <style>
+        .demo{
+            background-color: aqua;
+            display: inline-block;/*转换结构，从行元素转为列元素*/
+            border: 5px solid blue;
+            padding: 50px;/*内边距*/
+            margin: 40px;/*外边距*/
+        }
+        .demoAgain{
+            background-color: red;
+            width: 400px;
+            height: 200px;
+            border-color:blueviolet blue green gold;
+            border-style: dotted double dashed solid;
+            border-width: 9px 15px 20px 25px;/*顺时针*/
+        }
+    </style>
+</head>
+<body>
+    <div class="demo">盒子示例</div>
+    <div class="demoAgain">边框的详细示例</div>
+</body>
+</html>
