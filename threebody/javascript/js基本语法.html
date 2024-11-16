@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var x;//变量，具有函数作用域
+        let y=5;//变量，具有块级作用域，总的来说let更安全、更灵活
+        const z=3.14;//常量
+        // let可以避免var在变量提升和块级作用域上会出现的问题
+        console.log(x, y, z);
+        let name='如花'
+        console.log(name);
+        let age=18;
+        if(age>18){
+            console.log('你已经成年了');
+        }else{
+            console.log('你还未成年');
+        }
+    </script>
+</body>
+</html>
