@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YUEyueYUE</title>
+    <style>
+    .navbar a{
+        font-size: 20px;
+        color:aqua;
+        text-decoration: none;
+        transition: color 0.3s; /* 添加过渡效果 */
+    }
+    .navbar a:hover {
+            color: #fff; /* 鼠标悬停时改变颜色 */
+        }
+    .hover-image {
+            display: none; /* 默认隐藏图片 */
+            position: absolute; /* 绝对定位 */
+            top: 100%; /* 位于链接下方 */
+            left: 10%; /* 水平居中 */
+            transform: translateX(-50%) translateY(-10px); /* 初始状态向上偏移 */
+            transition: transform 0.3s, opacity 0.3s; /* 添加过渡效果 */
+            opacity: 0; /* 初始透明度 */
+            z-index: 10; /* 确保在其他内容之上 */
+        }
+        .link-hover:hover + .hover-image {
+            display: block; /* 悬停时显示图片 */
+            transform: translateX(-50%) translateY(0); /* 恢复到原位 */
+            opacity: 1; /* 最终透明度为1 */
+        }
+
+        .box {
+            position: relative; /* 设置为相对定位 */
+            width: 100%;
+            height: 20%;
+        }
+
+        /* 图片样式 */
+        .box img {
+            width: 100%; /* 图片宽度占满容器 */
+            height: 100%; /* 图片高度占满容器 */
+            object-fit: cover; /* 保持比例适应容器 */
+        }
+
+        /* 文字样式 */
+        .box .text {
+            position: absolute; /* 绝对定位 */
+            top: 50%; /* 距离顶部 50% */
+            left: 50%; /* 距离左侧 50% */
+            color: rgb(90, 14, 14,0.9); /* 文字颜色为白*/
+            font-size: 80px; /* 字体大小 */
+            font-weight: bold; /* 加粗字体 */
+            text-align: center; /* 居中对齐 */
+            transform: translate(-50%, -50%); /* 将文字居中 */
+        }
+
+        .box1{
+            position: absolute; /* 绝对定位 */
+            left: 50%;
+            top: 200px;
+            transform: translate(-50%, -50%); /* 通过位移调整中心点 */
+            background-color: white;
+            border-color: gray;
+            border-style: solid;
+            border-width:  15px ;
+            position: relative; /* 设置为相对定位 */
+            width: 50%;
+            height: 350px; 
+        }
+
+        .box2{
+            position: absolute; /* 绝对定位 */
+            left: 50%;
+            top: 200px;
+            transform: translate(-50%, -50%); /* 通过位移调整中心点 */
+            background-color: white;
+            border-color: gray;
+            border-style: solid;
+            border-width:  15px ;
+            position: relative; /* 设置为相对定位 */
+            width: 50%;
+            height: 350px; 
+        }
+
+        .box3{
+            position: absolute; /* 绝对定位 */
+            left: 50%;
+            top: 200px;
+            transform: translate(-50%, -50%); /* 通过位移调整中心点 */
+            background-color: white;
+            border-color: gray;
+            border-style: solid;
+            border-width:  15px ;
+            position: relative; /* 设置为相对定位 */
+            width: 50%;
+            height: 350px; 
+        }
+
+        .box4{
+            position: absolute; /* 绝对定位 */
+            left: 50%;
+            top: 200px;
+            transform: translate(-50%, -50%); /* 通过位移调整中心点 */
+            background-color: white;
+            border-color: gray;
+            border-style: solid;
+            border-width:  15px ;
+            position: relative; /* 设置为相对定位 */
+            width: 50%;
+            height: 350px; 
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="navbar"
+        style="background-color: rgba(238, 106, 5, 0.886); position: fixed; top: 0; width: 100%; z-index: 1000; border-radius: 15px;">
+        <nav>
+            <ul style="display: flex; list-style-type: none; padding: 0; margin: 0; justify-content: space-around;">
+                <li>
+                    <a href="#introduction" class="link-hover">Introduction</a>
+                    <img src="images/qrcode_1699620268564.jpg" alt="滑出图片" class="hover-image"  style="width: 250px;
+                    height: 250px;"/>
+                </li>
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="https://new-thread.com/" target="_blank">New Treat</a></li>
+                <li><a href="#Contact Us">Contact Us</a></li>
+                <li><a href="#Q&A">Q&A</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+    <!-- geek大标志 -->
+    <style>
+        .middle {
+            position: relative;
+            text-align: center;
+        }
+    
+        .middle img {
+            width: 80%;
+            height: auto;
+        }
+    
+        .middle .overlay {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            /* 从左侧50%开始 */
+            transform: translateX(-50%);
+            /* 向左移动自身宽度的一半，使其居中 */
+            width: 50%;
+            height: auto;
+            object-fit: cover;
+            /* 保持比例 */
+        }
+    </style>
+    <section class="middle" >
+        <img src="images/background_Homepage.png" alt="" style="width: 100%; height: auto;">
+        <img src="images/decoration_Geek.png" alt="" class="overlay">
+    </section>
+
+
+    <div class="box" id="introduction">
+        <img src="images/decoration_Transition.png" alt="">
+        <div class="text">INTRODUCTION</div>
+    </div>
+
+
+    <div class="box1" style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="flex: 1; text-align: left; padding: 10px;">
+            <h2>开发程序猿</h2>
+            <h1 style="color: turquoise;">“Stay Hungry，Stay Foolish”</h1>
+            <p style="color: antiquewhite;">
+            前端：前端开发是创建Web或app视觉界面呈现给用户的过程通过HTML，CSS及JavaScript以及衍生出来的各种技术、框架、解决方案，实现互联网产品的用户界面交互。</p>
+            <p>后端：通常也称服务器端开发。不对用户显示,负责处理前端的请求，进行逻辑处理和数据交互。 客户端: 移动应用开发是为了小型、无线计算设备编写软件的流程和程序的集合，例如智能手机或平板电脑。</p>
+        </div>
+        <img src="images/Geek_Programmer.png" alt="" style="height: 80%; width: auto; margin-right: 20px;">
+    </div>
+    
+    <div class="box2" style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="flex: 1; text-align: left; padding: 10px;">
+            <h2>游戏开发</h2>
+            <h1 style="color: turquoise;">"TECH OTAKUS SAVE THE WORLD"</h1>
+            <p style="color: antiquewhite;">
+                对游戏开发的热爱和追求，使我们相聚于此。 涉及计算机图形学的学习，我们使用物理模拟引擎Unity开发我们所追求的世界，一个故事，一个角色，在我们的世界里改变现实，创造新的可能，我们参与，我们改变，我们创造...</p>
+        </div>
+        <img src="images/Geek_Game.png" alt="" style="height: 80%; width: auto; margin-right: 20px;">
+    </div>
+
+    <div class="box3" style="display: flex; align-items: center; justify-content: space-between;">
+        <img src="images/Geek_PM.png" alt="" style="height: 80%; width: auto; margin-right: 10px;">
+        <div style="flex: 1; text-align: left; padding: 10px;">
+            <h2>产品经理</h2>
+            <h1 style="color: turquoise;">"好的软件的特征是,明明没用过，但总觉得用过似的。"</h1>
+            <p style="color: antiquewhite;">
+                PM是针对某一项或是某一类的产品进行规划和管理的人员。 PM需要拥有缜密的产品逻辑思维，研究用户心理，负责产品的整个生命周期。
+                PM参与产品的UI和交互设计，为设计和开发确定产品原型，能够将产品变得有个性,操作变得舒适简单、自由。
+                PM需要一定的文档能力和沟通能力，能够在团队合作的过程中跟各个角色进行有效沟通。
+            </p>
+        </div>
+    </div>
+
+
+    <div class="box4" style="display: flex; align-items: center; justify-content: space-between;">
+        <img src="images/Geek_Programmer.png" alt="" style="height: 80%; width: auto; margin-right: 10px;">
+        <div style="flex: 1; text-align: left; padding: 10px;">
+            <h2>安全</h2>
+            <h1 style="color: turquoise;">"路漫漫其修远兮,非大毅力者不能"</h1>
+            <p style="color: antiquewhite;">
+                我们主要学习Web安全和二进制安全。在Web安全中我们将学习和实践Web漏洞挖掘技术，也将探索和讨论Web安全实践的方法。在二进制安全中我们专注于分析和防御与计算机程序、系统相关的威胁，同时实践漏洞分析和修补。耐心和钻研缺一不可。
+            </p>
+        </div>
+    </div>
+<br>
+<br>
+<br>
+<br><br><br><br><br><br><br>
+
+<div class="about us" id="about-us"
+    style="position: relative; width: auto; height: 800px; margin: 0 auto; border: 2px solid rgb(239, 148, 2); text-align: center; background-color: beige;">
+    <h2
+        style="margin: 0; padding: 10px; position: absolute; top: 10px; left: 50%; 
+        transform: translateX(-50%);
+        font-size: 100px;  color: chocolate;">
+        About Us</h2>
+        <!-- 水平居中 -->
+    <img src="images\decoration_Decoration.png" alt=""
+        style="position: absolute; top: 0; left: 0; width: 100px; height: 100px;">
+    <img src="images\decoration_Decoration.png" alt=""
+        style="position: absolute; top: 0; right: 0; width: 100px; height: 100px;">
+    <div class="box5"
+        style="position: absolute; bottom: 0; left: 0; width: 220px; height:70%; border: 5px solid rgb(76, 76, 21); background-color: antiquewhite;" >
+        <img src="images\about_Speech.png" alt=""
+        style="position: absolute; top: 0; left: 50%;transform: translateX(-50%);width: 100px; height: 100px;">
+        <p
+            style="position: absolute; top: 120px; left: 50%; transform: translateX(-50%); text-align: center; margin: 0; padding: 0 10px; font-size: 14px; line-height: 3.0;">
+            每周我们会举行一次技术例会，用来汇报我们的学习内容，供成员之间交流学习。
+        </p>
+
+    </div>
+    <div class="box6"
+        style="position: absolute; bottom: 0; left: 50%;transform: translateX(-50%); width: 220px; height:70%; border: 5px solid rgb(76, 76, 21); background-color: antiquewhite;">
+        <img src="images\about_Diversity.png" alt=""
+            style="position: absolute; top: 0; left: 50%;transform: translateX(-50%);width: 100px; height: 100px;">
+        <p
+            style="position: absolute; top: 120px; left: 50%; transform: translateX(-50%); text-align: center; margin: 0; padding: 0 10px; font-size: 14px; line-height: 3.0;">
+            多元化是我们的特色。在这里，你可以拥有多种方向选择，前后端、安全、AI、产品/设计、游戏等。
+        </p>
+
+        </div>
+        <div class="box6"
+            style="position: absolute; bottom: 0; right: 0; width: 220px; height:70%; border: 5px solid rgb(76, 76, 21); background-color: antiquewhite;">
+            <img src="images\about_Time.png" alt=""
+                style="position: absolute; top: 0; left: 50%;transform: translateX(-50%);width: 100px; height: 100px;">
+            <p
+                style="position: absolute; top: 120px; left: 50%; transform: translateX(-50%); text-align: center; margin: 0; padding: 0 10px; font-size: 14px; line-height: 3.0;">
+                耐心、毅力是我们必备的品质，每周我们会至少花30小时在实验室中。以保证技术的精进。
+            </p>
+    
+    </div>
+</div>
+
+
+<br>
+<br>
+<br>
+<br><br><br><br><br><br><br>
+
+
+<div class="Contact us" id="Contact Us"
+    style="position: relative; width: auto; height: 800px; margin: 0 auto; border: 5px solid rgb(239, 148, 2); text-align: center; ">
+    <h2 style="margin: 0; padding: 10px; position: absolute; top: 10px; left: 50%; 
+            transform: translateX(-50%);
+            font-size: 100px;  color: chocolate;">
+        Contact Us</h2>
+    <!-- 水平居中 -->
+    <img src="images\decoration_Tree.png" alt=""
+        style="position: absolute; top: 0; right: 0; width: 100px; height: 100%;">
+        <!-- 右上 -->
+    <img src="images\decoration_TreeWithSometing.png" alt=""
+        style="position: absolute; top: 0; left: 0; width: 200px; height: 650px;">
+        <!-- 左上 -->
+    <img src="images\decoration_Chameleon.png" alt=""
+        style="position: absolute; bottom: 0; right: 5%; width: 500px; height: 500px;">
+        <!-- 右下 -->
+    <img src="images\decoration_Ladybug.png" alt=""
+        style="position: absolute; bottom: 0; left: 0; width: 100px; height: 100px;">
+        <!-- 左下 -->
+
+        <ul style="font-size: 50px; position: absolute; 
+        left: 50%; transform: translateX(-50%); top:20% ">
+            <li>热爱计算机，具有GEEK精神，喜欢DIY，动手能力强</li>
+            <li>有编程/算法/硬件基础为佳（有作品可以附上）</li>
+            <li>有足够的空余时间，热爱思考，对事物有自己的见解</li>
+        </ul>
+
+<!-- 主容器 -->
+<div class="box10" style="background-color: aqua; border: 2px solid saddlebrown; width: 150px; height: 60px; 
+        position: absolute; bottom: 0; left: 45%; text-align: center; line-height: 20px; overflow: visible;">
+    <!-- 按钮 -->
+    <button style="margin-top: 10px; padding: 5px 10px; background-color: rgb(18, 211, 208); border: none; 
+    border-radius: 5px; font-size: 30px; color: white; cursor: pointer;">
+        邮箱
+    </button>
+
+    <!-- 悬停提示框 -->
+    <span style="display: none; position: absolute; bottom: 70px; left: 50%; transform: translateX(-50%); 
+                background-color: white; border: 1px solid gray; padding: 5px; font-size: 12px; color: black; 
+                border-radius: 5px; white-space: nowrap; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+        1773632641@qq.com
+    </span>
+</div>
+
+<script>
+    // 获取 class 为 'box10' 的主容器
+    const box10 = document.querySelector('.box10');
+
+    // 获取提示框（span 元素）
+    const tooltip10 = box10.querySelector('span');
+
+    // 监听鼠标移入事件，显示提示框
+    box10.addEventListener('mouseenter', () => {
+        tooltip10.style.display = 'block'; // 显示提示框
+    });
+
+    // 监听鼠标移出事件，隐藏提示框
+    box10.addEventListener('mouseleave', () => {
+        tooltip10.style.display = 'none'; // 隐藏提示框
+    });
+
+    // 获取按钮，并添加点击事件
+    const button = box10.querySelector('button');
+    button.addEventListener('click', () => {
+        // 获取提示框中的数字内容
+        const textToCopy = tooltip10.textContent;
+
+        // 复制内容到剪贴板
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+                alert('数字已复制到剪贴板：' + textToCopy);
+            })
+            .catch(err => {
+                console.error('复制失败：', err);
+            });
+    });
+</script>
+
+
+        <div class="box11" style="background-color: aqua; border: 2px solid saddlebrown; width: 150px;
+                    height: 60px; position: absolute; bottom: 0; left: 75%; line-height: 20px; overflow: visible;">
+            <button style="margin-top: 10px; padding: 5px 10px; background-color: rgb(18, 211, 208); border: none; 
+                        border-radius: 5px; font-size: 30px; color: white; cursor: pointer;">
+                GitHub
+            </button>
+            <!-- 悬停提示框 -->
+            <span style="display: none; position: absolute; bottom: 70px; left: 50%; transform: translateX(-50%); 
+                        background-color: white; border: 1px solid gray; padding: 5px; font-size: 12px; color: black; 
+                        border-radius: 5px; white-space: nowrap; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+                我们是冠军！！！
+            </span>
+        </div>
+        
+        <script>
+            // 获取 class 为 'box11' 的主容器
+            const box11 = document.querySelector('.box11');
+
+            // 获取提示框（span 元素）
+            const tooltip11= box11.querySelector('span'); // 修正变量名
+
+            // 监听鼠标移入事件，显示提示框
+            box11.addEventListener('mouseenter', () => {
+                tooltip11.style.display = 'block'; // 显示提示框
+            });
+
+            // 监听鼠标移出事件，隐藏提示框
+            box11.addEventListener('mouseleave', () => {
+                tooltip11.style.display = 'none'; // 隐藏提示框
+            });
+        </script>
+
+
+
+
+
+        <div class="box12" style="background-color: aqua; border: 2px solid saddlebrown; width: 150px;
+            height: 60px; position: absolute; bottom: 0; left: 15%; line-height: 20px; overflow: visible;">
+            <button style="margin-top: 10px; padding: 5px 10px; background-color: rgb(18, 211, 208); border: none; 
+                border-radius: 5px; font-size: 30px; color: white; cursor: pointer;">
+                QQ号
+            </button>
+            <!-- 悬停提示框 -->
+            <span style="display: none; position: absolute; bottom: 70px; left: 50%; transform: translateX(-50%); 
+                background-color: white; border: 1px solid gray; padding: 5px; font-size: 12px; color: black; 
+                border-radius: 5px; white-space: nowrap; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+                1773632641
+            </span>
+        </div>
+        
+        <script>
+            // 获取 class 为 'box12' 的主容器
+            const box12 = document.querySelector('.box12');
+
+            // 获取提示框（span 元素）
+            const tooltip12 = box12.querySelector('span'); // 修正变量名
+
+            // 监听鼠标移入事件，显示提示框
+            box12.addEventListener('mouseenter', () => {
+                tooltip12.style.display = 'block'; // 显示提示框
+            });
+
+            // 监听鼠标移出事件，隐藏提示框
+            box12.addEventListener('mouseleave', () => {
+                tooltip12.style.display = 'none'; // 隐藏提示框
+            });
+            const button11 = box11.querySelector('button');
+                button11.addEventListener('click', () => {
+                    window.location.href = 'https://www.bilibili.com/video/BV14wB2YkEAT?t=3.7'; //目标链接
+                });//点击事件加网页
+        </script>
+
+</div>
+<br>
+<br>
+<br>
+<br><br><br><br><br><br><br>
+
+<div class="Q&A" id="Q&A"
+    style="position: relative; border: 5px solid blueviolet; width: 100%; height: 1200px; background-color: burlywood;">
+    <img src="images\background_QA.png" alt="" style="width: 100%; height: 100%;">
+    <h2
+        style="position: absolute; left: 50%; top: 0; transform: translateX(-50%); color: rgb(238, 148, 3); font-size: 90px;">
+        Q&A</h2>
+
+    <!-- 问题按钮 -->
+    <button onclick="toggleAnswer1()"
+        style="color: bisque; border: 2px solid black; position: absolute; left: 50%; top: 17%; transform: translateX(-50%); width: 80%; height: 50px; background-color: cadetblue; cursor: pointer;">
+        1.什么是Geek(极客)？Geek精神又是什么？
+    </button>
+
+    <!-- 回答内容 -->
+    <div id="answer1"
+        style="display: none; position: absolute; left: 50%; top: 22%; transform: translateX(-50%); width: 80%; background-color: rgb(3, 215, 159,0.8); padding: 10px; border: 1px solid gray; font-size: 16px; color: black; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+        拥有好奇之心，改变之力，爱钻研，能折腾。
+    </div>
+
+    <button onclick="toggleAnswer2()"
+        style="color: bisque; border: 2px solid black; position: absolute; left: 50%; top: 25%; transform: translateX(-50%); width: 80%; height: 50px; background-color: cadetblue; cursor: pointer;">
+        2.招新是安排在什么时间？
+    </button>
+    
+    <!-- 回答内容 -->
+    <div id="answer2"
+        style="display: none; position: absolute; left: 50%; top: 30%; transform: translateX(-50%); width: 80%; background-color: rgb(3, 215, 159,0.8); padding: 10px; border: 1px solid gray; font-size: 16px; color: black; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+        按照惯例，正式招新时间是在9月下旬~10月上旬，不过今年会有一些改动，笔试地 点一般在9号教学楼。 如果想要了解我们，可以加入我们的QQ群，招新具体的安排/变动会在招新群通知。
+    </div>
+
+    <button onclick="toggleAnswer3()"
+        style="color: bisque; border: 2px solid black; position: absolute; left: 50%; top: 35%; transform: translateX(-50%); width: 80%; height: 50px; background-color: cadetblue; cursor: pointer;">
+        3.我们有考核吗？考核流程是怎样的呀？
+    </button>
+    
+    <!-- 回答内容 -->
+    <div id="answer3"
+        style="display: none; position: absolute; left: 50%; top: 40%; transform: translateX(-50%); width: 80%; background-color: rgb(3, 215, 159,0.8); padding: 10px; border: 1px solid gray; font-size: 16px; color: black; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+        嗯...我们一共有一轮笔试和两轮面试。权衡技术、经验和学习能力，第一轮是一些视野性的题目，淘汰率并不高。第二轮单独面试， 根据你的笔试提出技术相关的问题、兴趣爱好、个人看法。最后一轮群面，首先问及时间分
+        配上的问题，其次也会向你提出各种奇怪的问题。这一轮中许多题目其实并不难，也无标准答案，重在考察同学们在压力下的逻辑思维。全部通过成为预备成员啦。
+    </div>
+
+
+    <button onclick="toggleAnswer4()"
+        style="color: bisque; border: 2px solid black; position: absolute; left: 50%; top: 47%; transform: translateX(-50%); width: 80%; height: 50px; background-color: cadetblue; cursor: pointer;">
+        4.考核是怎样的形式？
+    </button>
+    
+    <!-- 回答内容 -->
+    <div id="answer4"
+        style="display: none; position: absolute; left: 50%; top: 52%; transform: translateX(-50%); width: 80%; background-color: rgb(3, 215, 159,0.8); padding: 10px; border: 1px solid gray; font-size: 16px; color: black; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+        在考核期间每人会拥有一位'长者'带你入门，学习技术与知识，交流经验与想法。完成每周的新人任务后再进行一次考核筛选 后就可以成为Geek组正式成员啦！在考核期必须满足每周30个小时在实验室哦,所以考核期也不可以懈怠哦！
+    </div>
+
+
+    <button onclick="toggleAnswer5()"
+        style="color: bisque; border: 2px solid black; position: absolute; left: 50%; top: 58%; transform: translateX(-50%); width: 80%; height: 50px; background-color: cadetblue; cursor: pointer;">
+        5.进入Geek组之后都有什么福利呢？
+    </button>
+    
+    <!-- 回答内容 -->
+    <div id="answer5"
+        style="display: none; position: absolute; left: 50%; top: 63%; transform: translateX(-50%); width: 80%; background-color: rgb(3, 215, 159,0.8); padding: 10px; border: 1px solid gray; font-size: 16px; color: black; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+        一对一的新人指引，每一个成员都有会一个mentor, 带你初入门槛，与你一同成长，组内管理较宽松,在尊重其他人的前提下可以尽情发挥自己的个性。
+        打破平淡，与同样疯狂的人把疯狂的idea实现，磨砺耐性、培养思维、成就梦想。Lab设备/网络资源充足，闲暇之余也有组织活动。更有许多的故事等你来听~
+    </div>
+
+    <button onclick="toggleAnswer6()"
+        style="color: bisque; border: 2px solid black; position: absolute; left: 50%; top: 70%; transform: translateX(-50%); width: 80%; height: 50px; background-color: cadetblue; cursor: pointer;">
+        6.进入团队会影响我的日常学习吗？
+    </button>
+    
+    <!-- 回答内容 -->
+    <div id="answer6"
+        style="display: none; position: absolute; left: 50%; top: 75%; transform: translateX(-50%); width: 80%; background-color: rgb(3, 215, 159,0.8); padding: 10px; border: 1px solid gray; font-size: 16px; color: black; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+        你要知道大学是一个可以自由安排自己学习生活的地方。如果你想在上课之余充实自己、激励自己，最好的方法就是和比自己更优秀的人在一起。团队不缺优秀的 人，而我们也期待同样优秀的你，让我们一起前进！小组里也有不少保研, 考研的前辈们,
+        大部分都能找到一个平衡点, 而且团队的经历对你日后读研, 工作都大有裨益。
+    </div>
+
+    <button onclick="toggleAnswer7()"
+        style="color: bisque; border: 2px solid black; position: absolute; left: 50%; top: 82%; transform: translateX(-50%); width: 80%; height: 50px; background-color: cadetblue; cursor: pointer;">
+        7.老师以及学长学姐们的期望是什么?
+    </button>
+    
+    <!-- 回答内容 -->
+    <div id="answer7"
+        style="display: none; position: absolute; left: 50%; top: 87%; transform: translateX(-50%); width: 80%; background-color: rgb(3, 215, 159,0.8); padding: 10px; border: 1px solid gray; font-size: 16px; color: black; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+        我们希望你有很强的自学能力，同时关注新事物、新技术，喜欢挑战，逻辑性强，善于和各种文化的人合作.“每个人都可以做自己想做的事情，每个人的方向不一样。 如果你想做产品或有不错的 idea，那么就可以找志同道合的人一起合作。
+    </div>
+</div>
+
+<script>
+    function toggleAnswer1() {
+        const answerDiv1 = document.getElementById("answer1");
+        // 切换显示状态
+        if (answerDiv1.style.display === "none" || answerDiv1.style.display === "") {
+            answerDiv1.style.display = "block"; // 显示回答内容
+        } else {
+            answerDiv1.style.display = "none"; // 隐藏回答内容
+        }
+    }
+</script>
+
+<script>
+    function toggleAnswer2() {
+        const answerDiv2 = document.getElementById("answer2");
+        // 切换显示状态
+        if (answerDiv2.style.display === "none" || answerDiv2.style.display === "") {
+            answerDiv2.style.display = "block"; // 显示回答内容
+        } else {
+            answerDiv2.style.display = "none"; // 隐藏回答内容
+        }
+    }
+</script>
+<script>
+    function toggleAnswer3() {
+        const answerDiv3 = document.getElementById("answer3");
+        // 切换显示状态
+        if (answerDiv3.style.display === "none" || answerDiv3.style.display === "") {
+            answerDiv3.style.display = "block"; // 显示回答内容
+        } else {
+            answerDiv3.style.display = "none"; // 隐藏回答内容
+        }
+    }
+</script>
+
+<script>
+    function toggleAnswer4() {
+        const answerDiv4 = document.getElementById("answer4");
+        // 切换显示状态
+        if (answerDiv4.style.display === "none" || answerDiv4.style.display === "") {
+            answerDiv4.style.display = "block"; // 显示回答内容
+        } else {
+            answerDiv4.style.display = "none"; // 隐藏回答内容
+        }
+    }
+</script>
+<script>
+    function toggleAnswer5() {
+        const answerDiv5 = document.getElementById("answer5");
+        // 切换显示状态
+        if (answerDiv5.style.display === "none" || answerDiv5.style.display === "") {
+            answerDiv5.style.display = "block"; // 显示回答内容
+        } else {
+            answerDiv5.style.display = "none"; // 隐藏回答内容
+        }
+    }
+</script>
+<script>
+    function toggleAnswer6() {
+        const answerDiv6 = document.getElementById("answer6");
+        // 切换显示状态
+        if (answerDiv6.style.display === "none" || answerDiv6.style.display === "") {
+            answerDiv6.style.display = "block"; // 显示回答内容
+        } else {
+            answerDiv6.style.display = "none"; // 隐藏回答内容
+        }
+    }
+</script>
+<script>
+    function toggleAnswer7() {
+        const answerDiv7 = document.getElementById("answer7");
+        // 切换显示状态
+        if (answerDiv7.style.display === "none" || answerDiv7.style.display === "") {
+            answerDiv7.style.display = "block"; // 显示回答内容
+        } else {
+            answerDiv7.style.display = "none"; // 隐藏回答内容
+        }
+    }
+</script>
+
+
+
+
+</body>
+</html>
