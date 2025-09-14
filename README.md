@@ -1,2 +1,5 @@
 # 一、前期任务和中期任务是学习go之前写的
 # 二、go语言学习记录中包含着任务，5、6、7已经清楚标记
+
+
+@tag:nextEditSuggestions   打开vscode的ai
