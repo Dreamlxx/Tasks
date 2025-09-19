@@ -1,4 +1,4 @@
-package Tasks.total.算法与数据结构.算法;
+
 //简单排序算法，异或运算，相同为0，不同为1
 public class Class1 {
     public static void main(String[] args) {
