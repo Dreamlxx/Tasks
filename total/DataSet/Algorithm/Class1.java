@@ -1,7 +1,7 @@
 package Tasks.total.DataSet.Algorithm;
-
 public class Class1 {
     public static void main(String[] args) {
+        Integer e = 16;
         int a = 16;
         int b = 8;
         int c = 3;
@@ -13,6 +13,7 @@ public class Class1 {
         a = a ^ b;
         System.out.println(a);
         System.out.println(b);
+        System.out.println(e);
 
         fun(arr, c, d);
 
