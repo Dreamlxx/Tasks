@@ -2,7 +2,7 @@
 #include <stdlib.h> // 用于malloc函数
 #define MAXSIZE 100
 typedef char Element;
-
+typedef char TreeType;
 
 typedef struct TreeNode{
     Element data;
@@ -12,6 +12,7 @@ typedef struct TreeNode{
 
 typedef TreeNode* BiTree;//指针
 
+//栈声明
 typedef struct
 {
     BiTree data[MAXSIZE]; // 数组存储栈中元素
@@ -67,9 +68,102 @@ int top(Stack *s, BiTree *e)
     return 1;
 }
 
+typedef TreeNode *ElemType;//指针
 
+//队列声明
+typedef struct{
+    ElemType *data2;
+    int front;
+    int rear;
+} Queue;
 
+//初始化队列
+Queue *initQueue(){
+    Queue *q=(Queue *)malloc(sizeof(Queue));
+    q->front = 0;
+    q->rear = 0;
+    q->data2 = (ElemType *)malloc(MAXSIZE * sizeof(ElemType));
+    return q;
+}
 
+//判断队列是否为空
+int isQueueEmpty(Queue *q){
+    if(q->front == q->rear){
+        printf("队列为空，无法出队\n");
+        return 1;
+    }
+    return 0;
+}
+
+//入队操作
+int enqueue(Queue *q,ElemType e){
+    if((q->rear+1) % MAXSIZE == q->front)// 检查尾指针rear的下一个位置是不是头指针front，如果是，则认为队列已满，从而避免和“队列为空”的状态混淆
+    { 
+        printf("队列已满，无法入队\n");
+        return 0;
+    }
+    q->data2[q->rear] = e;
+    q->rear = (q->rear + 1) % MAXSIZE;//可以形成逻辑上的环，重复利用队列数据
+    return 1;
+}
+
+//出队操作
+int dequeue(Queue *q, ElemType *e) {
+    if (isQueueEmpty(q)) {
+        return 0;
+    }
+    *e = q->data2[q->front];
+    q->front = (q->front + 1) % MAXSIZE;
+    return 1;
+}//出队操作移除头元素，front指针后移，取余也能形成逻辑环
+
+//获取队头元素
+int getFront(Queue *q, ElemType *e) {
+    if (isQueueEmpty(q)) {
+        return 0;
+    }
+    *e = q->data2[q->front];
+    return 1;
+}
+
+//获取队列元素个数
+int queueSize(Queue *q){
+    if(!isQueueEmpty(q)){
+        return (q->rear - q->front + MAXSIZE) % MAXSIZE;
+    }
+    else{
+        return 0;
+    }
+}
+
+//层序遍历代码
+int maxDepth(TreeNode* root){
+    if(root==NULL){
+        return 0;
+    }
+
+    int depth=0;
+    Queue* q=initQueue();
+    enqueue(q,root);
+
+    while(q->front!=q->rear){
+        int count=queueSize(q);
+        while(count>0){
+            TreeNode *curr;
+            dequeue(q, &curr);//指针传递
+            printf("%c ", curr->data);
+            if(curr->lchild!=NULL){
+                enqueue(q,curr->lchild);
+            }
+            if(curr->rchild!=NULL){
+                enqueue(q,curr->rchild);
+            }
+            count--;
+        }
+        depth++;
+    }
+    return depth;
+}
 
 char str[]="ABDH#K###E##CFI###G#J##";//用#表示空节点
 
@@ -184,5 +278,13 @@ int main()
     printf("\n");
     printf("叶子节点个数: ");
     printf("%d", cnt);
+
+    printf("\n");
+    // 计算二叉树的最大深度
+    printf("层序遍历: ");
+    int depth = maxDepth(root);
+    printf("\n");
+    printf("二叉树的最大深度: %d\n", depth);
+
     return 0;
 }
