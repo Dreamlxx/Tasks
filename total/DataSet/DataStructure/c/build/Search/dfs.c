@@ -23,7 +23,7 @@ void initVisited(int n)
 
 
 
-//广度优先算法核心代码
+//深度优先算法核心代码
 void dfs(Mat_Grph g,int i){
     visited[i] = 1;
     printf("%c",g.vertex[i]);
