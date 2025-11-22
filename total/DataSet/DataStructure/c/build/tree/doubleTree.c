@@ -167,7 +167,7 @@ int maxDepth(TreeNode* root){
 
 char str[]="ABDH#K###E##CFI###G#J##";//用#表示空节点
 
-
+//先序递归创建二叉树
 void creatTree(BiTree * T){
     static int index = 0;//不加静态出现翁恺错误
     Element ch= str[index++];
@@ -234,6 +234,7 @@ void iterPreOrder(BiTree T){
 
 int cnt = 0;
 
+//判断是否为叶子节点
 void isLeaf(BiTree T){
     
     if(T==NULL){
