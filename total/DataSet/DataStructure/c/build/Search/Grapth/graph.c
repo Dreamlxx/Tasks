@@ -100,7 +100,7 @@ void bfs(Mat_Grph g)
 void dfs(Mat_Grph g, int i)
 {
     visited[i] = 1;
-    printf("%c", g.vertex[i]);
+    printf("%c ", g.vertex[i]);
     for (int j = 0; j < g.vertexNum; j++)
     {
         if (g.arc[i][j] == 1 && !visited[j])
