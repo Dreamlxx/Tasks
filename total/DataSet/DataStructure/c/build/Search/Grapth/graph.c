@@ -1,17 +1,11 @@
-#include<stdio.h>
+// graph.c
+#include "graph.h"
 
-typedef char VertexType;
-typedef int EdgeType;
-
-#define MAXSIZE 100
-
-typedef struct {
-    VertexType vertex[MAXSIZE];//顶点表
-    EdgeType arc[MAXSIZE][MAXSIZE];//邻接矩阵
-    int vertexNum, arcNum;//图的当前顶点数和边数
-} Mat_Grph;//邻接矩阵表示的图
-
-int visited[MAXSIZE];//访问标志数组
+// 全局变量定义
+int visited[MAXSIZE];
+int front = 0;
+int rear = 0;
+int queue[MAXSIZE];
 
 // 初始化访问标志数组
 void initVisited(int n)
@@ -25,10 +19,10 @@ void initVisited(int n)
 void createGraph(Mat_Grph *g)
 {
     int i, j;
-    printf("请输入顶点数和边数: ");
+    printf("Please enter vertex information (one character per vertex): \n ");
     scanf("%d %d", &g->vertexNum, &g->arcNum);
 
-    printf("请输入各顶点信息: \n");
+    printf("Please enter vertex information: \n");
     for (i = 0; i < g->vertexNum; i++)
     {
         scanf(" %c", &g->vertex[i]);
@@ -43,7 +37,7 @@ void createGraph(Mat_Grph *g)
         }
     }
 
-    printf("请输入各边的信息(格式: 起点 终点): \n");
+    printf("Please enter edge information (format: start end): \n");
     for (i = 0; i < g->arcNum; i++)
     {
         char start, end;
@@ -62,9 +56,8 @@ void createGraph(Mat_Grph *g)
         }
         g->arc[m][n] = 1; // 有向图
     }
-    
-    //如果无以下代码就是有向图
 
+    // 转换为无向图
     for (i = 0; i < g->vertexNum; i++)
     {
         for (j = 0; j < g->vertexNum; j++)
@@ -77,21 +70,42 @@ void createGraph(Mat_Grph *g)
     }
 }
 
-//深度优先算法核心代码
-void dfs(Mat_Grph g,int i){
+// 广度优先算法
+void bfs(Mat_Grph g)
+{
+    // 重置队列指针
+    front = 0;
+    rear = 0;
+
+    int i = 0; // 从第0个节点开始
     visited[i] = 1;
-    printf("%c",g.vertex[i]);
-    for(int j = 0; j < g.vertexNum; j++){
-        if(g.arc[i][j] == 1 && !visited[j]){//遍历i层，并且忽略掉已经访问过的节点，用j做到
-            dfs(g, j);
+    printf("%c ", g.vertex[i]);
+    queue[rear++] = i;
+
+    while (front < rear){// 队列不为空
+        int u = queue[front++]; // 出队列
+        for (int v = 0; v < g.vertexNum; v++)
+        {
+            if (g.arc[u][v] == 1 && !visited[v])
+            {
+                visited[v] = 1;
+                printf("%c ", g.vertex[v]);
+                queue[rear++] = v; // 入队列
+            }
         }
     }
 }
 
-int main(){
-    Mat_Grph g;
-    createGraph(&g);
-    initVisited(g.vertexNum);
-    dfs(g, 0);
-    return 0;
+// 深度优先算法
+void dfs(Mat_Grph g, int i)
+{
+    visited[i] = 1;
+    printf("%c", g.vertex[i]);
+    for (int j = 0; j < g.vertexNum; j++)
+    {
+        if (g.arc[i][j] == 1 && !visited[j])
+        {
+            dfs(g, j);
+        }
+    }
 }

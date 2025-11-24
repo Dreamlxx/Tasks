@@ -13,11 +13,54 @@ typedef struct {
 
 int visited[MAXSIZE];//访问标志数组
 
+//初始化访问标志数组
 void initVisited(int n){
     for(int i = 0; i < n; i++){
         visited[i] = 0;
     }
-}//初始化访问标志数组
+}
+
+
+void createGraph(Mat_Grph *g){
+    int i, j;
+    printf("请输入顶点数和边数: ");
+    scanf("%d %d", &g->vertexNum, &g->arcNum);
+
+    printf("请输入各顶点信息: \n");
+    for(i = 0; i < g->vertexNum; i++){
+        scanf(" %c", &g->vertex[i]);
+    }
+
+    // 初始化邻接矩阵
+    for(i = 0; i < g->vertexNum; i++){
+        for(j = 0; j < g->vertexNum; j++){
+            g->arc[i][j] = 0;
+        }
+    }
+
+    printf("请输入各边的信息(格式: 起点 终点): \n");
+    for(i = 0; i < g->arcNum; i++){
+        char start, end;
+        scanf(" %c %c", &start, &end);
+        int m, n;
+        // 查找顶点对应的下标
+        for(m = 0; m < g->vertexNum; m++){
+            if(g->vertex[m] == start) break;
+        }
+        for(n = 0; n < g->vertexNum; n++){
+            if(g->vertex[n] == end) break;
+        }
+        g->arc[m][n] = 1; // 有向图
+    }
+
+    for (i = 0; i < g->vertexNum;i++){
+        for (j = 0; j < g->vertexNum;j++){
+            if(g->arc[i][j]==1){
+                g->arc[j][i]=1; //无向图
+            }
+        }
+    }
+}
 
 
 //虚假的队列实现，功能类似
