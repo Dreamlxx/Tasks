@@ -38,6 +38,8 @@ void createGraph(Mat_Grph *g)
     }
 
     printf("Please enter edge information (format: start end): \n");
+    
+    //构建有向图
     for (i = 0; i < g->arcNum; i++)
     {
         char start, end;
@@ -54,7 +56,7 @@ void createGraph(Mat_Grph *g)
             if (g->vertex[n] == end)
                 break;
         }
-        g->arc[m][n] = 1; // 有向图
+        g->arc[m][n] = 1;
     }
 
     // 转换为无向图
@@ -64,7 +66,7 @@ void createGraph(Mat_Grph *g)
         {
             if (g->arc[i][j] == 1)
             {
-                g->arc[j][i] = 1; // 无向图
+                g->arc[j][i] = 1;
             }
         }
     }

@@ -14,8 +14,7 @@ typedef TreeNode* BiTree;//指针
 
 //栈声明
 typedef struct
-{
-    BiTree data[MAXSIZE]; // 数组存储栈中元素
+{   BiTree data[MAXSIZE]; // 指针数组存储栈中元素
     int top;
 } Stack;
 
@@ -27,8 +26,8 @@ void initStack(Stack *s)
 
 // 判断栈是否为空
 int isEmpty(Stack *s)
-{
-    return s->top == -1;
+{    
+    return s->top == -1;//为空返回1，不为空返回0
 }
 
 // 进栈/压栈
@@ -129,14 +128,14 @@ int getFront(Queue *q, ElemType *e) {
 //获取队列元素个数
 int queueSize(Queue *q){
     if(!isQueueEmpty(q)){
-        return (q->rear - q->front + MAXSIZE) % MAXSIZE;
+        return (q->rear - q->front + MAXSIZE) % MAXSIZE;//取模运算避免负数
     }
     else{
         return 0;
     }
 }
 
-//层序遍历代码
+//层序遍历代码+计算二叉树的最大深度
 int maxDepth(TreeNode* root){
     if(root==NULL){
         return 0;
@@ -146,9 +145,12 @@ int maxDepth(TreeNode* root){
     Queue* q=initQueue();
     enqueue(q,root);
 
-    while(q->front!=q->rear){
-        int count=queueSize(q);
-        while(count>0){
+    //双层循环，外层循环控制层数，内层循环遍历当前层所有节点
+    while(q->front!=q->rear)
+    {
+        int count=queueSize(q);//当前层节点数
+        while(count>0)//遍历当层所有节点
+        {
             TreeNode *curr;
             dequeue(q, &curr);//指针传递
             printf("%c ", curr->data);
@@ -162,8 +164,8 @@ int maxDepth(TreeNode* root){
         }
         depth++;
     }
-    return depth;
-}
+    return depth;//返回最大深度
+}//队列的“先进先出”完美做到不影响下一层入队，并且输入这一层
 
 char str[]="ABDH#K###E##CFI###G#J##";//用#表示空节点
 
@@ -217,7 +219,7 @@ void iterPreOrder(BiTree T){
     Stack s;
     initStack(&s);
     BiTree p=T;
-    while (p!=0||isEmpty(&s)!=1)
+    while (p!=0||isEmpty(&s)!=1)//树不为空或者栈不为空
     {
         if(p!=0){
             printf("%c", p->data);
@@ -225,7 +227,7 @@ void iterPreOrder(BiTree T){
             p=p->lchild;//遍历左子树
         }
         else{
-            pop(&s, &p);//弹出栈顶元素，回到右子树，进而
+            pop(&s, &p);//弹出栈顶元素，回到栈顶元素，进而往右子树走
             p=p->rchild;
         }
     }
@@ -236,7 +238,6 @@ int cnt = 0;
 
 //判断是否为叶子节点
 void isLeaf(BiTree T){
-    
     if(T==NULL){
         return;
     }
@@ -244,8 +245,11 @@ void isLeaf(BiTree T){
         printf("%c ",T->data);
         cnt++;
     }
+
+    else{
     isLeaf(T->lchild);
     isLeaf(T->rchild);
+    }
 }
 
 // 主函数
@@ -255,7 +259,6 @@ int main()
 
     // 创建二叉树
     creatTree(&root);
-
     // 递归遍历
     printf("递归前序遍历: ");
     PreOrder(root);
