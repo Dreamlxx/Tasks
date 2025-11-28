@@ -174,7 +174,7 @@ void creatTree(BiTree * T){
     static int index = 0;//不加静态出现翁恺错误
     Element ch= str[index++];
     if(ch=='#'){
-        *T = NULL;//空节点,解引用指针
+        *T = NULL;//空节点
     }
     else{
         *T=(BiTree)malloc(sizeof(TreeNode));
@@ -234,6 +234,58 @@ void iterPreOrder(BiTree T){
     printf("\n");
 }//nb
 
+
+//非递归的中序遍历
+void imerPreOrder(BiTree T){
+    Stack s;
+    initStack(&s); 
+    BiTree p=T;
+    while (p!=0||isEmpty(&s)!=1)//树不为空或者栈不为空
+    {
+        if(p!=0){
+            
+            push(&s, p);
+            p=p->lchild;//遍历左子树
+        }
+        else{
+            pop(&s, &p);//弹出栈顶元素，回到栈顶元素，进而往右子树走
+            printf("%c", p->data);
+            p=p->rchild;
+        }
+    }
+    printf("\n");
+}//nb
+
+//非递归后续遍历
+void ilerPreOrder(BiTree T){
+    Stack s;
+    initStack(&s);
+    BiTree p=T;
+    while (p!=0||isEmpty(&s)!=1)//树不为空或者栈不为空
+    {
+        if(p!=0){
+            
+            push(&s, p);
+            p=p->lchild;//遍历左子树
+        }
+        else{
+            pop(&s, &p);//弹出栈顶元素，回到栈顶元素，进而往右子树走
+            if(p->rchild==NULL){//右子树为空，直接访问节点
+                printf("%c", p->data);
+                p=NULL;//防止重复访问
+            }
+            else{
+                BiTree temp=p->rchild;
+                p->rchild=NULL;//防止重复访问
+                push(&s, p);//将根节点重新入栈
+                p=temp;//遍历右子树
+            }
+        }
+    }
+    printf("\n");
+}//nb
+
+
 int cnt = 0;
 
 //判断是否为叶子节点
@@ -275,6 +327,10 @@ int main()
     // 非递归前序遍历
     printf("非递归前序遍历: ");
     iterPreOrder(root);
+    printf("非递归中序遍历: ");
+    imerPreOrder(root);
+    printf("非递归后序遍历: ");
+    ilerPreOrder(root);
 
     // 叶子节点统计
     printf("叶子节点: ");
