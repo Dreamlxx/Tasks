@@ -19,7 +19,7 @@ void initVisited(int n)
 void createGraph(Mat_Grph *g)
 {
     int i, j;
-    printf("Please enter vertex information (one character per vertex): \n ");
+    printf("Please enter vertex's and edge's count: \n ");
     scanf("%d %d", &g->vertexNum, &g->arcNum);
 
     printf("Please enter vertex information: \n");
@@ -72,7 +72,7 @@ void createGraph(Mat_Grph *g)
     }
 }
 
-// 广度优先算法
+// 广度优先算法（层序遍历）
 void bfs(Mat_Grph g)
 {
     // 重置队列指针
@@ -82,13 +82,13 @@ void bfs(Mat_Grph g)
     int i = 0; // 从第0个节点开始
     visited[i] = 1;
     printf("%c ", g.vertex[i]);
-    queue[rear++] = i;
+    queue[rear++] = i;//初始化队列，以进入下列的循环
 
-    while (front < rear){// 队列不为空
-        int u = queue[front++]; // 出队列
+    while (front < rear){//队列不为空
+        int u = queue[front++]; // 出队列，初次本质是记录上方i的值
         for (int v = 0; v < g.vertexNum; v++)
         {
-            if (g.arc[u][v] == 1 && !visited[v])
+            if (g.arc[u][v] == 1 && visited[v] == 0)
             {
                 visited[v] = 1;
                 printf("%c ", g.vertex[v]);
@@ -98,14 +98,14 @@ void bfs(Mat_Grph g)
     }
 }
 
-// 深度优先算法
+// 深度优先算法（前序遍历）
 void dfs(Mat_Grph g, int i)
 {
     visited[i] = 1;
     printf("%c ", g.vertex[i]);
     for (int j = 0; j < g.vertexNum; j++)
     {
-        if (g.arc[i][j] == 1 && !visited[j])
+        if (g.arc[i][j] == 1 && visited[j] == 0)
         {
             dfs(g, j);
         }

@@ -170,7 +170,7 @@ int maxDepth(TreeNode* root){
 char str[]="ABDH#K###E##CFI###G#J##";//用#表示空节点
 
 //先序递归创建二叉树
-void creatTree(BiTree * T){
+void creatTree(BiTree *T){
     static int index = 0;//不加静态出现翁恺错误
     Element ch= str[index++];
     if(ch=='#'){
@@ -243,7 +243,6 @@ void imerPreOrder(BiTree T){
     while (p!=0||isEmpty(&s)!=1)//树不为空或者栈不为空
     {
         if(p!=0){
-            
             push(&s, p);
             p=p->lchild;//遍历左子树
         }

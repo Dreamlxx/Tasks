@@ -69,7 +69,6 @@ int rear = 0;
 int queue[MAXSIZE];
 
 
-
 //广度优先算法核心代码
 void bfs(Mat_Grph g){
     int i = 0; //从第0个节点开始
