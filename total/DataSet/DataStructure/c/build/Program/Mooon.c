@@ -216,6 +216,59 @@ void SPFAByNode(Map p, int start, int end,int **distance,char **path)
 }
 
 
+//生生流转,弗洛伊德
+void floyd(Map *p,int **dist,int **next)
+{
+    int i, j, k;
+    int n = p->vertexNum;
+    for (i = 0;i<n;i++)
+    {
+        for (j = 0;j<n;j++)
+        {
+             dist[i][j] = p->edges[i][j];
+            
+            if(p->edges[i][j]<MAX&&j!=i)
+            {
+                next[i][j] = j;
+            }
+            else
+            {
+                next[i][j] = -1;
+            }
+        }
+    }
+
+    for (k = 0; k < n;k++){
+        for (i = 0;i<n;i++){
+            for (j = 0; j < n;j++){
+                if (dist[i][k] < MAX && dist[k][j] < MAX && dist[i][k] + dist[k][j]<dist[i][j]){
+                    dist[i][j] = dist[i][k] + dist[k][j];
+                    next[i][j] = next[i][k];
+                }
+            }
+        }
+    }
+}
+
+void printFloyd(Map p, int **next, int start,int end){
+    if(next[start][end]>=MAX){
+        printf("无法到达终点\n");
+        return;
+    }
+    printf("Road is:%c", p.vertexes[start]);
+    int now=start;
+    while(now!=end)
+    {
+        now = next[now][end];
+        printf(" → %c", p.vertexes[now]);
+    }
+}
+
+//平均距离最小
+void Smallest1(Map *p)
+{
+    
+}
 
 int main()
 {
