@@ -92,7 +92,7 @@ int eval(Stack *s){
     int op1, op2;
     int index = 0;
     contentType token;
-    token = getToken(&sy mbol, &index);
+    token = getToken(&symbol, &index);
     element result;
     while(token != EOS){
         if(token == NUM){
