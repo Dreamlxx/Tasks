@@ -50,75 +50,12 @@ int pop(Node *p,int *e){
 }
 
 
-//不含文件的创建图方式
-/*
-void createMap(Map *p){
-    int i, j;
-    printf("请输入点的个数和边的个数:\n");
-    scanf("%d %d", &p->vertexNum, &p->edgeNum);
-
-    printf("请输入点的信息:\n");
-    p->vertexes = (VertexType *)malloc(p->vertexNum * sizeof(VertexType));
-
-    //一个一个输入点
-    for(i = 0; i < p->vertexNum; i++){
-        scanf(" %c", &p->vertexes[i]);
-    }
-
-     
-    p->edges = (EdgeType **)malloc(p->vertexNum * sizeof(EdgeType *));
-    for(i = 0; i < p->vertexNum; i++){
-        p->edges[i] = (EdgeType *)malloc(p->vertexNum * sizeof(EdgeType));
-    }
-    
-
-    p->edges = (EdgeType **)malloc(p->vertexNum * sizeof(EdgeType *));
-    p->edges[0] = (EdgeType *)malloc(p->vertexNum * p->vertexNum * sizeof(EdgeType));
-    for(i = 1; i < p->vertexNum; i++){
-        p->edges[i] = p->edges[0] + i * p->vertexNum;
-    }//使用完全连续的内存，更省空间
-
-    //初始化邻接矩阵
-    for(i = 0; i < p->vertexNum; i++){
-        for(j = 0; j < p->vertexNum; j++){
-            p->edges[i][j] = MAX;
-        }
-    }
-
-
-    //对角线为零
-    for(i = 0; i < p->vertexNum; i++){
-        p->edges[i][i] = 0;
-    } 
-    
-    
-    // 构建有向带权图
-        printf("请输入边的信息(格式: 起点 终点 权重):\n");
-    for(i = 0; i < p->edgeNum; i++){
-        char start, end;
-        int s;
-        scanf(" %c %c %d", &start, &end, &s);
-        int m, n;
-        //查找顶点对应的下标
-        for(m = 0; m < p->vertexNum; m++){
-            if(p->vertexes[m] == start)
-                break;
-        }
-        for(n = 0; n < p->vertexNum; n++){
-            if(p->vertexes[n] == end)
-                break;
-        }
-        p->edges[m][n] = s;
-    }
-}*/
-
-
-
 // ========== 图操作函数 ==========
+
 // 辅助函数：从文件读取图数据
 bool loadMapFromFile(Map *p, const string &filename)
 {
-    ifstream inFile(filename);
+    ifstream inFile(filename); // 创建一个 ifstream 类型的对象 inFile
     if (!inFile)
     {
         cerr << "错误：无法打开文件 " << filename << endl;
@@ -131,9 +68,12 @@ bool loadMapFromFile(Map *p, const string &filename)
 
     for (int i = 0; i < p->vertexNum; i++)
     {
-        inFile >> p->vertexes[i];
+        inFile >> p->vertexes[i];//读取点数据
     }
 
+
+    
+    //申请邻接矩阵空间，并初始化
     p->edges = (EdgeType **)malloc(p->vertexNum * sizeof(EdgeType *));
     p->edges[0] = (EdgeType *)malloc(p->vertexNum * p->vertexNum * sizeof(EdgeType));
     for (int i = 1; i < p->vertexNum; i++)
@@ -149,11 +89,16 @@ bool loadMapFromFile(Map *p, const string &filename)
         }
     }
 
+
+    //对角线赋值成零
     for (int i = 0; i < p->vertexNum; i++)
     {
         p->edges[i][i] = 0;
     }
 
+
+
+    //将能到达的点赋上权重
     for (int i = 0; i < p->edgeNum; i++)
     {
         char start, end;
@@ -289,8 +234,7 @@ void createMap(Map *p)
     cout << "\n=== 交通图数据管理 ===" << endl;
     cout << "1. 从标准输入创建新图" << endl;
     cout << "2. 从文件读取图数据" << endl;
-    cout << "3. 保存当前图数据到文件" << endl;
-    cout << "请选择操作(1-3): ";
+    cout << "请选择操作(1-2): ";
     cin >> choice;
 
     switch (choice)
@@ -308,26 +252,6 @@ void createMap(Map *p)
         if (!loadMapFromFile(p, filename))
         {
             cout << "文件读取失败，请检查文件名是否正确" << endl;
-        }
-        break;
-    }
-
-    case 3:
-    {
-        if (p->vertexes == NULL || p->edges == NULL)
-        {
-            cout << "错误：当前没有图数据，请先创建或加载图" << endl;
-        }
-        else
-        {
-            string filename;
-            cout << "请输入要保存的文件名: ";
-            cin >> filename;
-
-            if (!saveMapToFile(p, filename))
-            {
-                cout << "文件保存失败，请检查文件名或路径" << endl;
-            }
         }
         break;
     }
@@ -367,13 +291,13 @@ void SPFAByNode(Map *p, int start, int end)
 {
     int *dist = (int *)malloc(p->vertexNum * sizeof(int));//记录从起点到这个点的最短距离
     int *prev = (int *)malloc(p->vertexNum * sizeof(int));//记录每一个顶点的前驱
-    int *inNode = (int *)calloc(p->vertexNum, sizeof(int));//防止重复过节点
+    int *inNode = (int *)calloc(p->vertexNum, sizeof(int));//记录节点，类似二叉树
 
     // 初始化
     for (int i = 0; i < p->vertexNum; i++)
     {
         dist[i] = MAX;//所有都是最大，起点到自己为零
-        prev[i] = -1;//所有都初始化-1，表示没有前驱
+        prev[i] = -1;//所有都初始化-1，表示目前没有前驱
     }
     dist[start] = 0;//起点到自己为零
 
@@ -417,7 +341,7 @@ void SPFAByNode(Map *p, int start, int end)
     {
         printf("最短距离: %d\n", dist[end]);
 
-        // 反向构建路径
+        // 反向构建路径，因为是栈
         Node pathStack;
         initNode(&pathStack);
         pathStack.data = (int *)malloc(p->vertexNum * sizeof(int));
@@ -501,7 +425,7 @@ void printFloyd(Map p, int **next, int start,int end){
     }
 }
 
-//找到两点间最短路径
+//找到两点间最短路径，spfa的使用
 void findShortestPath(Map *p)
 {
     char start, end;
@@ -545,7 +469,7 @@ void Smallest1(Map *p)
     {
         dist[i] = (int *)malloc(n * sizeof(int));
         next[i] = (int *)malloc(n * sizeof(int));
-        FinalCnt[i] = 1e9; // 初始化为很大的数
+        FinalCnt[i] = 1e9; // 计算每个点作为总部大家到它的距离的平均
     }
 
     // 计算所有点对最短路径
@@ -557,7 +481,7 @@ void Smallest1(Map *p)
         int total = 0;
         int Count = 0;
 
-        // 计算所有其他站点到i的距离
+        // 计算所有其他站点（j）到i的距离
         for (j = 0; j < n; j++)
         {
             if (i != j)
@@ -584,7 +508,7 @@ void Smallest1(Map *p)
     }
 
     // 找出最佳站点
-    double minPoint = 1e9;
+    double minPoint = 1e9;//用来计算平均数
     int bestPoint = -1;
 
     for (i = 0; i < n; i++)
@@ -628,19 +552,19 @@ void Smallest2(Map *p)
     // 分配内存
     int **dist = (int **)malloc(n * sizeof(int *));
     int **next = (int **)malloc(n * sizeof(int *));
-    int *x = (int *)malloc(n * sizeof(int)); // 修正：x是一维数组，存储每个站点作为总部时的最远距离
+    int *x = (int *)malloc(n * sizeof(int)); //存储每个站点作为总部时的最远距离
 
     for (i = 0; i < n; i++)
     {
         dist[i] = (int *)malloc(n * sizeof(int));
         next[i] = (int *)malloc(n * sizeof(int));
-        x[i] = MAX; // 初始化为MAX，表示无效
+        x[i] = MAX;
     }
 
     // 计算所有点对最短路径
     floyd(p, dist, next);
 
-    // 对每个站点作为总部进行计算
+    // 对每个站点作为总部进行计算，对应到矩阵上都是一列一列找
     for (i = 0; i < n; i++)
     {
         int max = 0;          // 记录最远距离
@@ -670,7 +594,7 @@ void Smallest2(Map *p)
     }
 
     // 找出最远距离最小的站点
-    int min = MAX + 1;
+    int min = MAX;
     int bestSite = -1;
     for (i = 0; i < n; i++)
     {
@@ -681,7 +605,7 @@ void Smallest2(Map *p)
         }
     }
 
-    if (bestSite != -1 && min < MAX + 1)
+    if (bestSite != -1 && min < MAX)
     {
         printf("合适的站点为%c,最远距离为%d\n", p->vertexes[bestSite], min);
     }
@@ -700,67 +624,38 @@ void Smallest2(Map *p)
 }
 
 // ========== 菜单函数 ==========
+
+// 清理屏幕
 void clearScreen()
 {
-#ifdef _WIN32
-    system("cls");
-#else
-    system("clear");
-#endif
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
 }
 
 void displayMainMenu()
 {
     cout << "\n============ 主菜单 ============" << endl;
     cout << "1. 创建/加载交通图数据" << endl;
-    cout << "2. 查看当前图信息" << endl;
-    cout << "3. 查询站点间最短路径" << endl;
-    cout << "4. 选址功能" << endl;
-    cout << "5. 保存图数据到文件" << endl;
-    cout << "6. 清屏" << endl;
-    cout << "7. 退出系统" << endl;
+    cout << "2. 查询站点间最短路径" << endl;
+    cout << "3. 选址功能" << endl;
+    cout << "4. 保存图数据到文件" << endl;
+    cout << "5. 清屏" << endl;
+    cout << "6. 退出系统" << endl;
     cout << "=================================" << endl;
-    cout << "请输入您的选择 (1-7): ";
-}
-
-void displayCurrentGraphInfo(Map *map)
-{
-    if (map->vertexes == NULL || map->edges == NULL)
-    {
-        cout << "当前没有加载任何图数据！请先选择选项1创建或加载图。" << endl;
-        return;
-    }
-
-    cout << "\n=== 当前交通图信息 ===" << endl;
-    cout << "顶点数量: " << map->vertexNum << endl;
-    cout << "边数量: " << map->edgeNum << endl;
-
-    cout << "\n顶点列表: ";
-    for (int i = 0; i < map->vertexNum; i++)
-    {
-        cout << map->vertexes[i] << " ";
-    }
-    cout << endl;
-
-    cout << "\n边信息（前10条）: " << endl;
-    int count = 0;
-    for (int i = 0; i < map->vertexNum && count < 10; i++)
-    {
-        for (int j = 0; j < map->vertexNum && count < 10; j++)
-        {
-            if (i != j && map->edges[i][j] < MAX)
-            {
-                cout << map->vertexes[i] << " -> " << map->vertexes[j]
-                     << " : " << map->edges[i][j] << endl;
-                count++;
-            }
-        }
-    }
-
-    if (map->edgeNum > 10)
-    {
-        cout << "... 还有 " << map->edgeNum - 10 << " 条边未显示" << endl;
-    }
+    cout << "请输入您的选择 (1-6): ";
 }
 
 void saveCurrentMap(Map *map)
@@ -877,21 +772,18 @@ void handleUserChoice(Map *map)
         inputGraphData(map);
         break;
     case 2:
-        displayCurrentGraphInfo(map);
-        break;
-    case 3:
         queryShortestPath(map);
         break;
-    case 4:
+    case 3:
         locationSelectionMenu(map);
         break;
-    case 5:
+    case 4:
         saveCurrentMap(map);
         break;
-    case 6:
+    case 5:
         clearScreen();
         break;
-    case 7:
+    case 6:
         cout << "感谢使用，再见！" << endl;
         exit(0);
         break;
@@ -904,6 +796,8 @@ void handleUserChoice(Map *map)
 // ========== 主函数 ==========
 int main()
 {
+
+    //创建地图初始化
     Map myMap;
     myMap.vertexes = NULL;
     myMap.edges = NULL;
@@ -913,7 +807,7 @@ int main()
     int running = 1;
 
     cout << "=== 交通图管理与路径分析系统 ===" << endl;
-    cout << "作者: Mooon" << endl;
+    cout << "作者: 可爱之帅气之李响" << endl;
     cout << "版本: 1.0" << endl;
     cout << "=================================" << endl;
 
@@ -926,14 +820,21 @@ int main()
         {
             char continueChoice;
             cout << "\n是否返回主菜单? (y/n): ";
+
             cin >> continueChoice;
-            if (continueChoice == 'n' || continueChoice == 'N')
+            if (continueChoice == 'y' || continueChoice == 'Y')
+            {
+                clearScreen();
+                continue; // 继续循环，显示主菜单
+            }
+            else if (continueChoice == 'n' || continueChoice == 'N')
             {
                 running = 0;
                 cout << "感谢使用，再见！" << endl;
             }
             else
             {
+                cout << "输入无效，默认返回主菜单" << endl;
                 clearScreen();
             }
         }
