@@ -96,8 +96,7 @@ bool loadMapFromFile(Map *p, const string &filename)
         p->edges[i][i] = 0;
     }
 
-
-
+    
     //将能到达的点赋上权重
     for (int i = 0; i < p->edgeNum; i++)
     {
@@ -808,7 +807,6 @@ int main()
 
     cout << "=== 交通图管理与路径分析系统 ===" << endl;
     cout << "作者: 可爱之帅气之李响" << endl;
-    cout << "版本: 1.0" << endl;
     cout << "=================================" << endl;
 
     while (running)
