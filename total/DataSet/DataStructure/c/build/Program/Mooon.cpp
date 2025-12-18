@@ -24,6 +24,7 @@ typedef struct{
     int top;
 } Node;
 
+//栈相关函数
 void initNode(Node *p)
 {
     p->top = -1;
@@ -71,11 +72,11 @@ bool loadMapFromFile(Map *p, const string &filename)
         inFile >> p->vertexes[i];//读取点数据
     }
 
-
     
     //申请邻接矩阵空间，并初始化
     p->edges = (EdgeType **)malloc(p->vertexNum * sizeof(EdgeType *));
     p->edges[0] = (EdgeType *)malloc(p->vertexNum * p->vertexNum * sizeof(EdgeType));
+
     for (int i = 1; i < p->vertexNum; i++)
     {
         p->edges[i] = p->edges[0] + i * p->vertexNum;
@@ -89,13 +90,11 @@ bool loadMapFromFile(Map *p, const string &filename)
         }
     }
 
-
     //对角线赋值成零
     for (int i = 0; i < p->vertexNum; i++)
     {
         p->edges[i][i] = 0;
     }
-
     
     //将能到达的点赋上权重
     for (int i = 0; i < p->edgeNum; i++)
@@ -127,6 +126,8 @@ bool loadMapFromFile(Map *p, const string &filename)
 // 辅助函数：保存图数据到文件
 bool saveMapToFile(Map *p, const string &filename)
 {
+
+    //创建文件
     ofstream outFile(filename);
     if (!outFile)
     {
@@ -290,7 +291,7 @@ void SPFAByNode(Map *p, int start, int end)
 {
     int *dist = (int *)malloc(p->vertexNum * sizeof(int));//记录从起点到这个点的最短距离
     int *prev = (int *)malloc(p->vertexNum * sizeof(int));//记录每一个顶点的前驱
-    int *inNode = (int *)calloc(p->vertexNum, sizeof(int));//记录节点，类似二叉树
+    int *inNode = (int *)calloc(p->vertexNum, sizeof(int));//类似于visit，但是允许重复进栈
 
     // 初始化
     for (int i = 0; i < p->vertexNum; i++)
@@ -315,7 +316,7 @@ void SPFAByNode(Map *p, int start, int end)
         pop(&s, &u);
         inNode[u] = 0;
 
-        // 松弛操作
+        // 松弛操作，从起点开始找小的
         for (int v = 0; v < p->vertexNum; v++)
         {
             if (p->edges[u][v] < MAX)
@@ -325,7 +326,7 @@ void SPFAByNode(Map *p, int start, int end)
                     dist[v] = dist[u] + p->edges[u][v];
                     prev[v] = u;
 
-                    if (!inNode[v])
+                    if (!inNode[v])//只要小且现在不在栈中就入栈
                     {
                         push(&s, v);
                         inNode[v] = 1;
@@ -335,7 +336,7 @@ void SPFAByNode(Map *p, int start, int end)
         }
     }
 
-    // 输出结果
+    // 输出结果，若有路可走
     if (dist[end] < MAX)
     {
         printf("最短距离: %d\n", dist[end]);
@@ -346,13 +347,15 @@ void SPFAByNode(Map *p, int start, int end)
         pathStack.data = (int *)malloc(p->vertexNum * sizeof(int));
 
         int current = end;
+
+        //从end到start一个一个入栈
         while (current != -1)
         {
             push(&pathStack, current);
             current = prev[current];
         }
 
-        // 打印路径
+        // 打印路径，出栈
         printf("路径: ");
         while (pathStack.top != -1)
         {
@@ -364,6 +367,7 @@ void SPFAByNode(Map *p, int start, int end)
 
         free(pathStack.data);
     }
+    
     else
     {
         printf("无法到达终点\n");
@@ -477,8 +481,8 @@ void Smallest1(Map *p)
     // 对每个站点作为总部进行计算
     for (i = 0; i < n; i++)
     {
-        int total = 0;
-        int Count = 0;
+        int total = 0;//计算一个路权重总和
+        int Count = 0;//求平均数用
 
         // 计算所有其他站点（j）到i的距离
         for (j = 0; j < n; j++)
@@ -541,7 +545,6 @@ void Smallest1(Map *p)
     free(FinalCnt);
 }
 
-
 // 寻找使所有站点能到达总部的最短距离中的最长者最小的选址方案；
 void Smallest2(Map *p)
 {
@@ -573,8 +576,8 @@ void Smallest2(Map *p)
         {
             if (i != j)
             {
-                if (dist[j][i] >= MAX)
-                { // 不可达
+                if (dist[j][i] >= MAX)// 不可达
+                { 
                     could = 0;
                     break; // 跳出内层循环
                 }
@@ -623,8 +626,6 @@ void Smallest2(Map *p)
 }
 
 // ========== 菜单函数 ==========
-
-// 清理屏幕
 void clearScreen()
 {
     cout << endl;
