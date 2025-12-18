@@ -50,7 +50,6 @@ int pop(Node *p,int *e){
     return 1;
 }
 
-
 // ========== 图操作函数 ==========
 
 // 辅助函数：从文件读取图数据
@@ -316,7 +315,7 @@ void SPFAByNode(Map *p, int start, int end)
         pop(&s, &u);
         inNode[u] = 0;
 
-        // 松弛操作，从起点开始找小的
+        // 从起点开始找小的
         for (int v = 0; v < p->vertexNum; v++)
         {
             if (p->edges[u][v] < MAX)
@@ -352,14 +351,14 @@ void SPFAByNode(Map *p, int start, int end)
         while (current != -1)
         {
             push(&pathStack, current);
-            current = prev[current];
+            current = prev[current];//找到七点起点前驱是-1
         }
 
         // 打印路径，出栈
         printf("路径: ");
         while (pathStack.top != -1)
         {
-            int node;
+            int node;//接
             pop(&pathStack, &node);
             printf("%c ", p->vertexes[node]);
         }
@@ -379,7 +378,6 @@ void SPFAByNode(Map *p, int start, int end)
     free(inNode);
 }
 
-
 //生生流转,弗洛伊德
 void floyd(Map *p,int **dist,int **next)
 {
@@ -389,7 +387,7 @@ void floyd(Map *p,int **dist,int **next)
     {
         for (j = 0;j<n;j++)
         {
-             dist[i][j] = p->edges[i][j];
+            dist[i][j] = p->edges[i][j];
             
             if(p->edges[i][j]<MAX&&j!=i)
             {
@@ -628,21 +626,8 @@ void Smallest2(Map *p)
 // ========== 菜单函数 ==========
 void clearScreen()
 {
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
+    cout << endl;cout << endl;cout << endl;cout << endl;cout << endl;cout << endl;cout << endl;cout << endl;cout << endl;cout << endl;cout << endl;
+    cout << endl;cout << endl;cout << endl;cout << endl;
 }
 
 void displayMainMenu()
@@ -796,7 +781,6 @@ void handleUserChoice(Map *map)
 // ========== 主函数 ==========
 int main()
 {
-
     //创建地图初始化
     Map myMap;
     myMap.vertexes = NULL;
