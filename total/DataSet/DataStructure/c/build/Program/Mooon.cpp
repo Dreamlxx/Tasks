@@ -115,6 +115,31 @@ bool loadMapFromFile(Map *p, const string &filename)
         {
             p->edges[startIdx][endIdx] = weight;
         }
+
+        if(startIdx == -1){
+            printf("起点不存在，请重新输入正确的起点：");
+            char change;
+            scanf("%c",&change);
+            for(int t=0;t<p->vertexNum;t++){
+                if(p->vertexes[t]==change){
+                    startIdx = t;
+                    break;
+                }
+                p->edges[startIdx][endIdx] = weight;
+            }
+        }
+        if(endIdx == -1){
+            printf("起点不存在，请重新输入正确的起点：");
+            char change;
+            scanf("%c",&change);
+            for(int t=0;t<p->vertexNum;t++){
+                if(p->vertexes[t]==change){
+                    endIdx = t;
+                    break;
+                }
+                p->edges[startIdx][endIdx] = weight;
+            }
+        }
     }
 
     inFile.close();
