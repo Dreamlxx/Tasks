@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/lll/Desktop/TASKS/Tasks/total/DataSet/DataStructure/c/build/Program",
-      "program": "c:/Users/lll/Desktop/TASKS/Tasks/total/DataSet/DataStructure/c/build/Program/build/Debug/outDebug",
+      "cwd": "c:/Users/Dream/Desktop/TASKS/Tasks/total/DataSet/DataStructure/c/build/Program",
+      "program": "c:/Users/Dream/Desktop/TASKS/Tasks/total/DataSet/DataStructure/c/build/Program/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
