@@ -11,7 +11,7 @@ using namespace std;
 typedef char VertexType;//点
 typedef int EdgeType;//边
 const int MAX = INT_MAX - 4; // 防止溢出
-typedef char Small;
+int IfSave = 0;
 
 typedef struct
 {
@@ -94,7 +94,7 @@ bool loadMapFromFile(Map *p, const string &filename)
     {
         p->edges[i][i] = 0;
     }
-    
+
     //将能到达的点赋上权重
     for (int i = 0; i < p->edgeNum; i++)
     {
@@ -116,34 +116,56 @@ bool loadMapFromFile(Map *p, const string &filename)
             p->edges[startIdx][endIdx] = weight;
         }
 
-        if(startIdx == -1){
-            printf("起点不存在，请重新输入正确的起点：");
+        while(startIdx == -1){
+            printf("%c->%c的起点不存在，请重新输入正确的起点：",start,end);
             char change;
-            scanf("%c",&change);
+            cin >> change;
             for(int t=0;t<p->vertexNum;t++){
                 if(p->vertexes[t]==change){
                     startIdx = t;
                     break;
                 }
+            }
+            if(startIdx==-1){
+                continue;
+            }
+            else {
                 p->edges[startIdx][endIdx] = weight;
+                IfSave++;
             }
         }
-        if(endIdx == -1){
-            printf("起点不存在，请重新输入正确的起点：");
+
+        while (endIdx == -1)
+        {
+            printf("%c->%c的终点不存在，请重新输入正确的终点：",start,end);
             char change;
-            scanf("%c",&change);
-            for(int t=0;t<p->vertexNum;t++){
-                if(p->vertexes[t]==change){
+            cin >> change;
+            for (int t = 0; t < p->vertexNum; t++)
+            {
+                if (p->vertexes[t] == change)
+                {
                     endIdx = t;
                     break;
                 }
+            }
+            if (endIdx == -1)
+            {
+                continue;
+            }
+            else{
                 p->edges[startIdx][endIdx] = weight;
+                IfSave++;
             }
         }
     }
 
     inFile.close();
     cout << "成功从文件 " << filename << " 读取图数据" << endl;
+
+    if(IfSave!=0){
+        cout << "检测到文件中数据改变，现在为您自动保存" << endl;
+    }
+
     return true;
 }
 
@@ -277,6 +299,14 @@ void createMap(Map *p)
         {
             cout << "文件读取失败，请检查文件名是否正确" << endl;
         }
+
+        if(IfSave!=0){
+            if (saveMapToFile(p, filename))
+            {
+                cout << "图数据已成功保存到文件: " << filename << endl;
+            }
+        }
+
         break;
     }
 
