@@ -285,6 +285,8 @@ void freeMap(Map *p)
     p->edgeNum = 0;
 }
 
+//==============算法函数============================
+
 // 基于栈的SPFA算法（Shortest Path Faster Algorithm）
 void SPFAByNode(Map *p, int start, int end)
 {
