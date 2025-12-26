@@ -99,6 +99,7 @@ bool loadMapFromFile(Map *p, const string &filename)
     for (int i = 0; i < p->edgeNum; i++)
     {
         char start, end;
+        IfSave = 0;
         int weight;
         inFile >> start >> end >> weight;
 
