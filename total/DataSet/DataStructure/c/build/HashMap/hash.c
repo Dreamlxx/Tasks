@@ -42,7 +42,9 @@ HashMap *creatHashmao(int capacity){
 
     //给哈希表创建空间
     b->HashList=(List**)calloc(capacity,sizeof(List*));
-
+    for(int i=0;i<b->capacity;i++){
+        b->HashList[i]->next=NULL;
+    }
     if(!b->HashList) {
         free(b);
         return 0;
@@ -63,21 +65,18 @@ int insetHah(HashMap*p,int key,int value){
     //找到传入的key在哈希表里的哈希数的位置
     int index = hashNum(key,p->capacity);
     //创建一个新的链表指针来接它
-    List *newList=p->HashList[index];
+    List *newList=(List**)calloc(p->capacity,sizeof(List*));
 
-    //如果key已经存在，那么newlist里更新数据
-    if(newList->e.key == key){
-        newList->e.value = value;
-    
-        //头插法
-        newList->next=p->HashList[index]->next;
-        p->HashList[index]->next=newList;
+    //如果key已经存在，则覆盖原哈希表中的value
+    if(p->HashList[index]->e.key == key){
+        p->HashList[index]->e.value = value;
         return 1;
     }
 
     //若是没有key
     if(!newList->e.key){
         newList->e.key=key;
+        newList->e.value=value;
         
         //头插法
         newList->next=p->HashList[index]->next;
