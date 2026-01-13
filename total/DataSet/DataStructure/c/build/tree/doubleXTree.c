@@ -135,8 +135,9 @@ int queueSize(Queue *q){
     }
 }
 
+
 //层序遍历代码+计算二叉树的最大深度
-int maxDepth(TreeNode* root){
+int maxDepth(BiTree root){
     if(root==NULL){
         return 0;
     }
@@ -146,12 +147,12 @@ int maxDepth(TreeNode* root){
     enqueue(q,root);
 
     //双层循环，外层循环控制层数，内层循环遍历当前层所有节点
-    while(q->front!=q->rear)
+    while(q->front!=q->rear)//队列不为空
     {
         int count=queueSize(q);//当前层节点数
         while(count>0)//遍历当层所有节点
         {
-            TreeNode *curr;
+            BiTree curr;
             dequeue(q, &curr);//指针传递
             printf("%c ", curr->data);
             if(curr->lchild!=NULL){
@@ -300,6 +301,106 @@ void isLeaf(BiTree T){
     else{
     isLeaf(T->lchild);
     isLeaf(T->rchild);
+    }
+}
+
+//叶子节点个数
+int leafCount(BiTree T){
+    if(T=NULL){
+        return 0;//如果树是空树返回0
+    }
+
+    if(T->lchild==0&&T->rchild==0){
+        return 1;
+    }
+
+    else return leafCount(T->lchild)+leafCount(T->rchild);//递归调用
+}
+
+
+//交换每一个节点的左右子树
+void ChangeLR(BiTree T){
+    if(T==NULL){return 0;}
+    if (T->lchild==0&&T->rchild==0)
+    {
+        return 0;
+    }
+    
+    else {
+        BiTree temp=T->rchild;
+        T->lchild=T->rchild;
+        T->rchild=temp;
+    }
+
+    ChangeLR(T->lchild);
+    ChangeLR(T->rchild);
+
+}
+
+
+//层序遍历获取度数为1的节点
+int Level(BiTree T){
+    if (T==NULL){
+        return 0;
+    }
+    
+    Queue *q=initQueue();
+    enqueue(q,T);//将初始顶点入队
+        int OneCount=0;
+    while(q->rear!=q->front){
+        
+        int Count=queueSize(q);//用于判断一层的序号数量
+
+        while(Count){
+            int i=0;
+            BiTree curr;
+            dequeue(q,&curr);
+            if(curr->lchild){i++;enqueue(q,curr->lchild);}
+            if(curr->rchild){i++;enqueue(q,curr->rchild);}
+            if(i==1){OneCount++;}
+
+            Count--;
+        }
+    }
+    return OneCount;
+}
+
+//双序遍历节点,到每个子节点都把这个子节点的父节点输出一下
+void DoublePrint(BiTree T){
+    if(T=NULL){return 0;}
+    else if (T->lchild==NULL&&T->rchild==NULL)
+    {
+        /* code */
+        printf("%c",T->data);
+    }
+    else{
+        printf("%c",T->data);
+        DoublePrint(T->lchild);
+        printf("%c",T->data);
+        DoublePrint(T->rchild);
+    }
+}
+
+//遍历每个叶子节点到根节点的路径
+void Path(BiTree T, BiTree path[], int depth) {
+    if (T == NULL) {
+        return;
+    }
+    
+    // 将当前节点加入路径
+    path[depth] = T;
+    
+    // 如果是叶子节点
+    if (T->lchild == NULL && T->rchild == NULL) {
+        // 输出路径
+        for (int i = 0; i <= depth; i++) {
+            printf("%c ", path[i]->data);
+        }
+        printf("\n");
+    } else {
+        // 递归遍历左右子树
+        Path(T->lchild, path, depth + 1);
+        Path(T->rchild, path, depth + 1);
     }
 }
 
